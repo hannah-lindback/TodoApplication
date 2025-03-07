@@ -2,7 +2,15 @@ const express = require('express');
 const app = express();
 const port = 8080;
 
-let todos = [];
+const cors = require('cors');
+app.use(cors());
+
+let todos = [
+    { title: 'Learn about React', description: 'You have to learn about React', dueDate: '2025-12-31', completed: false },
+    { title: 'Meet friend for lunch', description: 'You have to meet friend for lunch', dueDate: '2025-12-31', completed: false },
+    { title: 'Build really cool todo app', description: 'You have to build really cool todo app', dueDate: '2025-12-31', completed: false },
+
+];
 
 app.listen(port, () => {
 console.log(`Server is running on port ${port}`);
