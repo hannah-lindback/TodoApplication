@@ -89,8 +89,7 @@ export default function Home() {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen p-8 pb-20 gap-16 sm:p-20 bg-white border border-gray-200">
       <h1>Todo App</h1>
-      
-      {/* Form for adding a new todo */}
+
       <form onSubmit={addTodo} className="flex flex-row p-4 border border-gray-200 rounded-md w-300 justify-between">
         <div className="flex flex-row gap-4">
           <input
@@ -123,12 +122,10 @@ export default function Home() {
         </div>
       </form>
 
-      {/* List of todos */}
       <ul>
         {todos.map((todo) => (
           <li key={todo.id} className="flex flex-row p-4 border border-gray-200 rounded-md w-300 justify-between">
             {editingTodoId === todo.id ? (
-              // Render edit form for this todo
               <form onSubmit={(e) => handleEditSubmit(e, todo.id)} className="flex flex-col gap-4 w-full">
                 <input
                   type="text"
@@ -160,23 +157,22 @@ export default function Home() {
                 </div>
               </form>
             ) : (
-              // Render normal view for the todo
-              <div className="flex flex-row gap-10">
-                <button onClick={() => startEditing(todo)}>
-                  <FontAwesomeIcon icon={faPen} />
-                </button>
-                <div>
-                  <h3>{todo.title}</h3>
-                  <p>{todo.description}</p>
-                  <p>Due date: {todo.dueDate}</p>
-                  <p>Completed: {todo.completed ? "Yes" : "No"}</p>
-                </div>
-                <div>
-                  <button onClick={() => deleteTodo(todo.id)}>
-                    <FontAwesomeIcon icon={faTrash} />
+              <><h3>{todo.title}</h3><div className="flex flex-row justify-between w-full">
+                  <button onClick={() => startEditing(todo)}>
+                    <FontAwesomeIcon icon={faPen} />
                   </button>
-                </div>
-              </div>
+                  <div className="flex flex-row gap-2">
+
+                    <p>{todo.description}</p>
+                    <p>Due date: {todo.dueDate}</p>
+                    <p>Completed: {todo.completed ? "Yes" : "No"}</p>
+                  </div>
+                  <div>
+                    <button onClick={() => deleteTodo(todo.id)}>
+                      <FontAwesomeIcon icon={faTrash} />
+                    </button>
+                  </div>
+                </div></>
             )}
           </li>
         ))}
