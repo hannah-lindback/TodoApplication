@@ -30,9 +30,11 @@ const TodoList = ({
     results.length > 0 ? (
       results
     ) : (
-      <li>
-        <h2>Nothing to do it seems!</h2>
-      </li>
+      <div className="w-200">
+        <h2 className="font-sans text-2xl">
+          Couldn't find any todos, add something!
+        </h2>
+      </div>
     );
 
   return (

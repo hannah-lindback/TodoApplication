@@ -20,16 +20,16 @@ const SearchBar = ({ todos, setSearchResults }) => {
   return (
     <form
       onSubmit={handleSearchSubmit}
-      className="flex items-center justify-center"
+      className="flex items-center justify-center border rounded-md"
     >
       <input
         type="text"
         name="search"
         placeholder="Search todos..."
         onChange={handleSearchChange}
-        className="p-2 border border-gray-300 rounded-md"
+        className="p-2 rounded-md "
       />
-      <button type="submit" className="p-2 bg-gray-300 rounded-md">
+      <button type="submit" className="p-2 bg-rose-400 text-white ">
         <FontAwesomeIcon icon={faMagnifyingGlass} />
       </button>
     </form>

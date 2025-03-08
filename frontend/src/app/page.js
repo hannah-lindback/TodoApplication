@@ -92,7 +92,7 @@ export default function Home() {
   const changeCompletionStatus = (e, id) => {
     const updatedTodos = todos.map((todo) => {
       if (todo.id === id) {
-        return { ...todo, completed: e.target.checked };
+        return { ...todo, completed: !todo.completed };
       }
       return todo;
     });
@@ -119,16 +119,23 @@ export default function Home() {
   return (
     <div className="flex flex-col items-center box-border w-full p-l-8 p-r-8">
       <Header />
-      <SearchBar todos={todos} setSearchResults={setSearchResults} />
-      <div>
-        <label>Sort by: </label>
-        <select onChange={handleSortChange}>
-          <option value="a-z">a-z</option>
-          <option value="due date">due date</option>
-        </select>
-      </div>
+
       <div className="flex flex-row gap-4">
         <div className="flex flex-col gap-4 items-center">
+          <div className="flex flex-row  rounded-md justify-between w-200">
+            <SearchBar todos={todos} setSearchResults={setSearchResults} />
+            <div className="flex flex-row gap-1 items-center font-sans bg-white border p-2 rounded-md">
+              <label htmlFor="sort">Sort by: </label>
+              <select
+                onChange={handleSortChange}
+                name="sort"
+                className="focus:outline-none"
+              >
+                <option value="a-z">A-Z</option>
+                <option value="due date">due date</option>
+              </select>
+            </div>
+          </div>
           <TodoList
             searchResults={currentTodos}
             startEditing={startEditing}
