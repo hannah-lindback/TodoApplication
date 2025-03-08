@@ -9,6 +9,7 @@ const TodoList = ({
   editFormData,
   setEditFormData,
   cancelEditing,
+  changeCompletionStatus, // Add this line
 }) => {
   const results = searchResults.map((todo) => (
     <Todo
@@ -21,6 +22,7 @@ const TodoList = ({
       editFormData={editFormData}
       setEditFormData={setEditFormData}
       cancelEditing={cancelEditing}
+      changeCompletionStatus={changeCompletionStatus} // Pass the function here
     />
   ));
 
@@ -33,7 +35,7 @@ const TodoList = ({
       </li>
     );
 
-  return <ul>{listContent}</ul>;
+  return <ul className="flex flex-col gap-4">{listContent}</ul>;
 };
 
 export default TodoList;

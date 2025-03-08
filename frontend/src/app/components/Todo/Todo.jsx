@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faPen } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
+import axios from "axios";
 
 const Todo = ({
   todo,
@@ -11,6 +12,7 @@ const Todo = ({
   editFormData,
   setEditFormData,
   cancelEditing,
+  changeCompletionStatus,
 }) => {
   const isEditing = editingTodoId === todo.id;
 
@@ -53,20 +55,57 @@ const Todo = ({
         </form>
       ) : (
         <>
-          <div className="flex flex-row gap-2">
-            <h3>{todo.title}</h3>
-            <p>{todo.description}</p>
-            <p>Due date: {todo.dueDate}</p>
-            <p>Completed: {todo.completed ? "Yes" : "No"}</p>
-          </div>
-          <div className="flex flex-row gap-4">
-            <button onClick={() => startEditing(todo)}>
-              <FontAwesomeIcon icon={faPen} />
-            </button>
-            <button onClick={() => deleteTodo(todo.id)}>
-              <FontAwesomeIcon icon={faTrash} />
-            </button>
-          </div>
+          {todo.completed ? (
+            <>
+              <div className="flex flex-row gap-2 line-through">
+                <form>
+                  <input
+                    type="checkbox"
+                    name="completed"
+                    checked={todo.completed}
+                    onChange={(e) => changeCompletionStatus(e, todo.id)}
+                  />
+                </form>
+                <h3>{todo.title}</h3>
+                <p>{todo.description}</p>
+                <p>Due date: {todo.dueDate}</p>
+                <p>Completed: {todo.completed ? "Yes" : "No"}</p>
+              </div>
+              <div className="flex flex-row gap-4">
+                <button onClick={() => startEditing(todo)}>
+                  <FontAwesomeIcon icon={faPen} />
+                </button>
+                <button onClick={() => deleteTodo(todo.id)}>
+                  <FontAwesomeIcon icon={faTrash} />
+                </button>
+              </div>
+            </>
+          ) : (
+            <>
+              <div className="flex flex-row gap-2">
+                <form>
+                  <input
+                    type="checkbox"
+                    name="completed"
+                    checked={todo.completed}
+                    onChange={(e) => changeCompletionStatus(e, todo.id)}
+                  />
+                </form>
+                <h3>{todo.title}</h3>
+                <section className="">{todo.description}</section>
+                <p>Due: {todo.dueDate}</p>
+                <p>Completed: {todo.completed ? "Yes" : "No"}</p>
+              </div>
+              <div className="flex flex-row gap-4">
+                <button onClick={() => startEditing(todo)}>
+                  <FontAwesomeIcon icon={faPen} />
+                </button>
+                <button onClick={() => deleteTodo(todo.id)}>
+                  <FontAwesomeIcon icon={faTrash} />
+                </button>
+              </div>
+            </>
+          )}
         </>
       )}
     </li>

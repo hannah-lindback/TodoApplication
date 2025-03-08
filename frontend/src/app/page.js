@@ -47,19 +47,18 @@ export default function Home() {
     });
   };
 
-  const cancelEditing = (todo) => {
+  const cancelEditing = () => {
     setEditingTodoId(null);
     setEditFormData({
       title: "",
       description: "",
       dueDate: "",
-      completed: todo.completed,
+      completed: false,
     });
   };
 
   const handleSortChange = (e) => {
     let sortType = e.target.value;
-    const todaysDate = new Date();
     let sortedTodos = [...searchResults];
 
     if (sortType === "a-z") {
@@ -81,6 +80,27 @@ export default function Home() {
           searchResults.map((todo) => (todo.id === id ? res.data : todo))
         );
         setEditingTodoId(null);
+      })
+      .catch((err) => console.error(err));
+  };
+
+  const changeCompletionStatus = (e, id) => {
+    const updatedTodos = todos.map((todo) => {
+      if (todo.id === id) {
+        return { ...todo, completed: e.target.checked };
+      }
+      return todo;
+    });
+
+    const updatedTodo = updatedTodos.find((todo) => todo.id === id);
+
+    axios
+      .put(`http://localhost:8080/todos/${id}`, updatedTodo)
+      .then((res) => {
+        setTodos(updatedTodos);
+        setSearchResults(
+          searchResults.map((todo) => (todo.id === id ? res.data : todo))
+        );
       })
       .catch((err) => console.error(err));
   };
@@ -115,6 +135,7 @@ export default function Home() {
         editFormData={editFormData}
         setEditFormData={setEditFormData}
         cancelEditing={cancelEditing}
+        changeCompletionStatus={changeCompletionStatus} // Pass the function here
       />
     </div>
   );
