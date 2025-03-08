@@ -24,13 +24,14 @@ const TodoList = ({
     />
   ));
 
-  const listContent = results?.length ? (
-    results
-  ) : (
-    <li>
-      <h2>No results found</h2>
-    </li>
-  );
+  const listContent =
+    results.length > 0 ? (
+      results
+    ) : (
+      <li>
+        <h2>Nothing to do it seems!</h2>
+      </li>
+    );
 
   return <ul>{listContent}</ul>;
 };

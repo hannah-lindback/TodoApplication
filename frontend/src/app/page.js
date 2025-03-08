@@ -5,18 +5,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faPlus, faPen } from "@fortawesome/free-solid-svg-icons";
 import SearchBar from "./components/SearchBar/Searchbar";
 import TodoList from "./components/TodoList/TodoList";
+import AddTodoForm from "./components/AddTodoForm/AddTodoForm";
 
 export default function Home() {
   const [todos, setTodos] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
+  const [dates, setDates] = useState([]);
   const [error, setError] = useState(null);
-  const [newTodo, setNewTodo] = useState({
-    id: Math.floor(Math.random() * 10000),
-    title: "",
-    description: "",
-    dueDate: "",
-    completed: false,
-  });
   const [editingTodoId, setEditingTodoId] = useState(null);
   const [editFormData, setEditFormData] = useState({
     title: "",
@@ -29,30 +24,11 @@ export default function Home() {
     axios.get("http://localhost:8080/todos").then((response) => {
       setTodos(response.data);
       setSearchResults(response.data);
+
+      const datesArray = response.data.map((todo) => todo.dueDate);
+      setDates(datesArray);
     });
   }, []);
-
-  const addTodo = (e) => {
-    e.preventDefault();
-    if (!newTodo.title || !newTodo.description || !newTodo.dueDate) {
-      setError("Please fill out all fields");
-      return;
-    }
-    const newTodoToAdd = { ...newTodo, id: Math.floor(Math.random() * 10000) };
-    axios.post("http://localhost:8080/todos", newTodoToAdd).then((response) => {
-      setTodos([...todos, response.data]);
-      setSearchResults([...todos, response.data]);
-
-      setNewTodo({
-        id: Math.floor(Math.random() * 10000),
-        title: "",
-        description: "",
-        dueDate: "",
-        completed: false,
-      });
-      setError(" ");
-    });
-  };
 
   const deleteTodo = (id) => {
     axios
@@ -81,7 +57,20 @@ export default function Home() {
     });
   };
 
-  // Submit the edited todo
+  const handleSortChange = (e) => {
+    let sortType = e.target.value;
+    const todaysDate = new Date();
+    let sortedTodos = [...searchResults];
+
+    if (sortType === "a-z") {
+      sortedTodos.sort((a, b) => a.title.localeCompare(b.title));
+    } else if (sortType === "due date") {
+      sortedTodos.sort((a, b) => a.dueDate.localeCompare(b.dueDate));
+    }
+
+    setSearchResults(sortedTodos);
+  };
+
   const handleEditSubmit = (e, id) => {
     e.preventDefault();
     axios
@@ -97,51 +86,26 @@ export default function Home() {
   };
 
   console.log(todos);
+  console.log(searchResults);
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen p-8 pb-20 gap-16 sm:p-20 bg-white border border-gray-200">
       <h1>Todo App</h1>
       <SearchBar todos={todos} setSearchResults={setSearchResults} />
-      <button>Sort</button>
+      <div>
+        <label htmlFor="sort">Sort by: </label>
+        <select onChange={handleSortChange}>
+          <option value="a-z">a-z</option>
+          <option value="due date">due date</option>
+        </select>
+      </div>
+
       <p>{error}</p>
-      <form
-        onSubmit={addTodo}
-        className="flex flex-row p-4 border border-gray-200 rounded-md w-300 justify-between"
-      >
-        <div className="flex flex-row gap-4">
-          <input
-            type="text"
-            name="title"
-            placeholder="Title"
-            value={newTodo.title}
-            onChange={(e) => setNewTodo({ ...newTodo, title: e.target.value })}
-          />
-          <input
-            type="text"
-            name="description"
-            placeholder="Description"
-            value={newTodo.description}
-            onChange={(e) =>
-              setNewTodo({ ...newTodo, description: e.target.value })
-            }
-          />
-          <input
-            type="date"
-            name="dueDate"
-            value={newTodo.dueDate}
-            onChange={(e) =>
-              setNewTodo({ ...newTodo, dueDate: e.target.value })
-            }
-          />
-        </div>
-
-        <div className="p-6 text-xl h-8 bg-blue-100 flex flex-row items-center justify-center">
-          <button type="submit">
-            <FontAwesomeIcon icon={faPlus} />
-          </button>
-        </div>
-      </form>
-
+      <AddTodoForm
+        setTodos={setTodos}
+        setSearchResults={setSearchResults}
+        setError={setError}
+      />
       <TodoList
         searchResults={searchResults}
         startEditing={startEditing}
