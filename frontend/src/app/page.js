@@ -12,10 +12,10 @@ import Header from "./components/Header/Header";
 export default function Home() {
   const [todos, setTodos] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
-  const [error, setError] = useState(null);
+
   const [editingTodoId, setEditingTodoId] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const [todosPerPage, setTodosPerPage] = useState(5);
+  const [todosPerPage, setTodosPerPage] = useState(4);
 
   const [editFormData, setEditFormData] = useState({
     title: "",
@@ -117,7 +117,7 @@ export default function Home() {
   console.log(todos);
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen p-8 pb-20 gap-2 sm:p-20 bg-white border border-gray-200">
+    <div className="flex flex-col items-center box-border w-full p-l-8 p-r-8">
       <Header />
       <SearchBar todos={todos} setSearchResults={setSearchResults} />
       <div>
@@ -127,28 +127,28 @@ export default function Home() {
           <option value="due date">due date</option>
         </select>
       </div>
-      <p>{error}</p>
-      <AddTodoForm
-        setTodos={setTodos}
-        setSearchResults={setSearchResults}
-        setError={setError}
-      />
-      <TodoList
-        searchResults={currentTodos}
-        startEditing={startEditing}
-        deleteTodo={deleteTodo}
-        handleEditSubmit={handleEditSubmit}
-        editingTodoId={editingTodoId}
-        editFormData={editFormData}
-        setEditFormData={setEditFormData}
-        cancelEditing={cancelEditing}
-        changeCompletionStatus={changeCompletionStatus}
-      />
-      <Pagination
-        length={searchResults.length}
-        todosPerPage={todosPerPage}
-        handlePagination={handlePagination}
-      />
+      <div className="flex flex-row gap-4">
+        <div className="flex flex-col gap-4 items-center">
+          <TodoList
+            searchResults={currentTodos}
+            startEditing={startEditing}
+            deleteTodo={deleteTodo}
+            handleEditSubmit={handleEditSubmit}
+            editingTodoId={editingTodoId}
+            editFormData={editFormData}
+            setEditFormData={setEditFormData}
+            cancelEditing={cancelEditing}
+            changeCompletionStatus={changeCompletionStatus}
+          />
+          <Pagination
+            length={searchResults.length}
+            todosPerPage={todosPerPage}
+            handlePagination={handlePagination}
+            currentPage={currentPage}
+          />
+        </div>
+        <AddTodoForm setTodos={setTodos} setSearchResults={setSearchResults} />
+      </div>
     </div>
   );
 }

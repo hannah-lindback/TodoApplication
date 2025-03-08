@@ -13,7 +13,7 @@ let todos = [
     title: "Buy groceries",
     description: "Purchase milk, bread, eggs, and seasonal fruits from Ica",
     dueDate: "2025-12-31",
-    completed: false,
+    completed: true,
   },
   {
     id: 2,
@@ -35,14 +35,14 @@ let todos = [
     title: "Call Mom",
     description: "Give Mom a call to catch up on life and say hello",
     dueDate: "2025-03-15",
-    completed: false,
+    completed: true,
   },
   {
     id: 5,
     title: "Finish Homework",
     description: "Complete the remaining exercises for the math assignment",
     dueDate: "2025-03-10",
-    completed: false,
+    completed: true,
   },
   {
     id: 6,
@@ -73,7 +73,7 @@ let todos = [
     description:
       "Tidy up the bedroom, vacuum the floor, and organize the closet",
     dueDate: "2025-02-25",
-    completed: false,
+    completed: true,
   },
   {
     id: 10,

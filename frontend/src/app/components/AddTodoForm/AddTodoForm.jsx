@@ -3,7 +3,8 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import axios from "axios";
 
-const AddTodoForm = ({ setTodos, setSearchResults, setError }) => {
+const AddTodoForm = ({ setTodos, setSearchResults }) => {
+  const [error, setError] = useState(null);
   const [newTodo, setNewTodo] = useState({
     id: Math.floor(Math.random() * 10000),
     title: "",
@@ -36,29 +37,30 @@ const AddTodoForm = ({ setTodos, setSearchResults, setError }) => {
         completed: false,
       });
     });
+    setError(null);
   };
 
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex flex-row p-4 border border-gray-200 rounded-md w-content justify-between gap-5"
+      className=" flex flex-col p-4 bg-white border rounded-md justify-between w-100 h-50 "
     >
-      <div className="flex flex-row gap-4">
+      <div className="flex flex-col gap-2">
+        <h2 className="text-2xl">Add a new todo</h2>
         <input
           type="text"
           name="title"
-          placeholder="Title"
+          placeholder="Title..."
           value={newTodo.title}
           onChange={handleChange}
         />
         <input
           type="text"
           name="description"
-          placeholder="Description"
+          placeholder="Description..."
           value={newTodo.description}
           onChange={handleChange}
         />
-        <hr className="text-black"></hr>
 
         <input
           type="date"
@@ -68,11 +70,15 @@ const AddTodoForm = ({ setTodos, setSearchResults, setError }) => {
         />
       </div>
 
-      <div className="p-6 text-xl h-8 bg-rose-400 flex flex-row items-center justify-center">
-        <button type="submit">
+      <div>
+        <button
+          className="text-white text-xl p-2 h-8 w-full text-sm bg-rose-400 flex flex-row items-center justify-center"
+          type="submit"
+        >
           <FontAwesomeIcon icon={faPlus} />
         </button>
       </div>
+      <p>{error}</p>
     </form>
   );
 };

@@ -1,5 +1,9 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash, faPen } from "@fortawesome/free-solid-svg-icons";
+import {
+  faTrash,
+  faPen,
+  faFloppyDisk,
+} from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import axios from "axios";
 
@@ -22,42 +26,48 @@ const Todo = ({
   };
 
   return (
-    <li className="flex flex-row p-4 bg-white border  rounded-md w-300 justify-between">
+    <li className="flex flex-row p-4 bg-white border rounded-md justify-between w-200">
       {isEditing ? (
-        <form
-          onSubmit={(e) => handleEditSubmit(e, todo.id)}
-          className="flex flex-row gap-2"
-        >
-          <input
-            type="text"
-            name="title"
-            value={editFormData.title}
-            onChange={handleChange}
-            required
-          />
-          <input
-            type="text"
-            name="description"
-            value={editFormData.description}
-            onChange={handleChange}
-            required
-          />
-          <input
-            type="date"
-            name="dueDate"
-            value={editFormData.dueDate}
-            onChange={handleChange}
-          />
-          <button type="submit">Save</button>
-          <button type="button" onClick={() => cancelEditing(todo)}>
-            Cancel
-          </button>
+        <form className="w-full" onSubmit={(e) => handleEditSubmit(e, todo.id)}>
+          <div className="flex flex-row gap-2 font-sans justify-between items-center">
+            <div className="flex flex-col gap-2">
+              <input
+                className="text-2xl"
+                type="text"
+                name="title"
+                value={editFormData.title}
+                onChange={handleChange}
+                required
+              />
+              <input
+                type="text"
+                name="description"
+                value={editFormData.description}
+                onChange={handleChange}
+                required
+              />
+              <input
+                type="date"
+                name="dueDate"
+                value={editFormData.dueDate}
+                onChange={handleChange}
+              />
+            </div>
+            <div className="flex flex-row gap-4 justify-center items-center">
+              <button className="text-3xl" type="submit">
+                <FontAwesomeIcon icon={faFloppyDisk}></FontAwesomeIcon>
+              </button>
+              <button type="button" onClick={() => cancelEditing(todo)}>
+                Cancel
+              </button>
+            </div>
+          </div>
         </form>
       ) : (
         <>
           {todo.completed ? (
             <>
-              <div className="flex flex-row gap-2 line-through">
+              <div>
                 <form>
                   <input
                     type="checkbox"
@@ -66,10 +76,13 @@ const Todo = ({
                     onChange={(e) => changeCompletionStatus(e, todo.id)}
                   />
                 </form>
-                <h3 className="text-xl">{todo.title}</h3>
-                <p>{todo.description}</p>
               </div>
-              <div className="flex flex-row gap-4">
+              <div className="flex flex-col gap-2 w-200 line-through">
+                <h3 className="text-2xl">{todo.title}</h3>
+                <section className="font-sans">{todo.description}</section>
+              </div>
+
+              <div className="flex flex-row gap-4 justify-center items-center">
                 <p>Due: {todo.dueDate}</p>
                 <button onClick={() => startEditing(todo)}>
                   <FontAwesomeIcon icon={faPen} />
@@ -81,7 +94,7 @@ const Todo = ({
             </>
           ) : (
             <>
-              <div className="flex flex-row gap-2">
+              <div>
                 <form>
                   <input
                     type="checkbox"
@@ -90,10 +103,13 @@ const Todo = ({
                     onChange={(e) => changeCompletionStatus(e, todo.id)}
                   />
                 </form>
-                <h3 className="text-xl">{todo.title}</h3>
+              </div>
+              <div className="flex flex-col gap-2 w-200">
+                <h3 className="text-2xl">{todo.title}</h3>
                 <section className="font-sans">{todo.description}</section>
               </div>
-              <div className="flex flex-row gap-4">
+
+              <div className="flex flex-row gap-4 justify-center items-center">
                 <p>Due: {todo.dueDate}</p>
                 <button onClick={() => startEditing(todo)}>
                   <FontAwesomeIcon icon={faPen} />
