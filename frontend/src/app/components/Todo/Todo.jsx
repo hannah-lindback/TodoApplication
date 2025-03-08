@@ -89,7 +89,7 @@ const Todo = ({
             <h3 className="text-2xl">{todo.title}</h3>
             <section className="font-sans">{todo.description}</section>
           </div>
-          <div className="flex flex-row gap-4 justify-center items-center ">
+          <div className="flex flex-row gap-4 justify-center items-center">
             <p className="font-sans text-sm w-30">Due: {todo.dueDate}</p>
             <button onClick={() => startEditing(todo)}>
               <FontAwesomeIcon icon={faPen} />

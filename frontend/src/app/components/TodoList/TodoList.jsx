@@ -9,7 +9,7 @@ const TodoList = ({
   editFormData,
   setEditFormData,
   cancelEditing,
-  changeCompletionStatus, // Add this line
+  changeCompletionStatus,
 }) => {
   const results = searchResults.map((todo) => (
     <Todo
@@ -22,7 +22,7 @@ const TodoList = ({
       editFormData={editFormData}
       setEditFormData={setEditFormData}
       cancelEditing={cancelEditing}
-      changeCompletionStatus={changeCompletionStatus} // Pass the function here
+      changeCompletionStatus={changeCompletionStatus}
     />
   ));
 

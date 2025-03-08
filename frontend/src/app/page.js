@@ -15,7 +15,7 @@ export default function Home() {
 
   const [editingTodoId, setEditingTodoId] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const [todosPerPage, setTodosPerPage] = useState(4);
+  const [todosPerPage, setTodosPerPage] = useState(5);
 
   const [editFormData, setEditFormData] = useState({
     title: "",
@@ -33,13 +33,6 @@ export default function Home() {
 
   const handlePagination = (pageNumber) => {
     setCurrentPage(pageNumber);
-  };
-
-  const deleteTodo = (id) => {
-    axios
-      .delete(`http://localhost:8080/todos/${id}`)
-      .then(() => setTodos(todos.filter((todo) => todo.id !== id)));
-    setSearchResults(searchResults.filter((todo) => todo.id !== id));
   };
 
   const startEditing = (todo) => {
@@ -73,6 +66,16 @@ export default function Home() {
     }
 
     setSearchResults(sortedTodos);
+  };
+
+  const deleteTodo = (id) => {
+    axios
+      .delete(`http://localhost:8080/todos/${id}`)
+      .then(() => {
+        setTodos(todos.filter((todo) => todo.id !== id));
+        setSearchResults(searchResults.filter((todo) => todo.id !== id));
+      })
+      .catch((err) => console.error(err));
   };
 
   const handleEditSubmit = (e, id) => {
@@ -114,7 +117,8 @@ export default function Home() {
   const indexOfFirstTodo = indexOfLastTodo - todosPerPage;
   const currentTodos = searchResults.slice(indexOfFirstTodo, indexOfLastTodo);
 
-  console.log(todos);
+  console.log("todos:", todos);
+  console.log("searchresults", searchResults);
 
   return (
     <div className="flex flex-col items-center box-border w-full p-l-8 p-r-8">

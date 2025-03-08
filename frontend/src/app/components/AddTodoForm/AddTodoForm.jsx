@@ -6,7 +6,7 @@ import axios from "axios";
 const AddTodoForm = ({ setTodos, setSearchResults }) => {
   const [error, setError] = useState(null);
   const [newTodo, setNewTodo] = useState({
-    id: Math.floor(Math.random() * 10000),
+    id: null,
     title: "",
     description: "",
     dueDate: "",
@@ -24,13 +24,12 @@ const AddTodoForm = ({ setTodos, setSearchResults }) => {
       setError("Please fill out all fields");
       return;
     }
-    const newTodoToAdd = { ...newTodo, id: Math.floor(Math.random() * 10000) };
+    const newTodoToAdd = { ...newTodo };
     axios.post("http://localhost:8080/todos", newTodoToAdd).then((response) => {
       setTodos((prevTodos) => [...prevTodos, response.data]);
       setSearchResults((prevResults) => [...prevResults, response.data]);
       setError(" ");
       setNewTodo({
-        id: Math.floor(Math.random() * 10000),
         title: "",
         description: "",
         dueDate: "",
