@@ -115,7 +115,7 @@ let todos = [
 ];
 
 app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+  console.log(`Server is running on port https://localhost:${port}`);
 });
 
 app.get("/", (req, res) => {

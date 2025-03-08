@@ -9,6 +9,7 @@ import TodoList from "./components/TodoList/TodoList";
 export default function Home() {
   const [todos, setTodos] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
+  const [error, setError] = useState(null);
   const [newTodo, setNewTodo] = useState({
     id: Math.floor(Math.random() * 10000),
     title: "",
@@ -33,6 +34,10 @@ export default function Home() {
 
   const addTodo = (e) => {
     e.preventDefault();
+    if (!newTodo.title || !newTodo.description || !newTodo.dueDate) {
+      setError("Please fill out all fields");
+      return;
+    }
     const newTodoToAdd = { ...newTodo, id: Math.floor(Math.random() * 10000) };
     axios.post("http://localhost:8080/todos", newTodoToAdd).then((response) => {
       setTodos([...todos, response.data]);
@@ -45,6 +50,7 @@ export default function Home() {
         dueDate: "",
         completed: false,
       });
+      setError(" ");
     });
   };
 
@@ -52,12 +58,9 @@ export default function Home() {
     axios
       .delete(`http://localhost:8080/todos/${id}`)
       .then(() => setTodos(todos.filter((todo) => todo.id !== id)));
-    setSearchResults(searchResults.filter((todo) => todo.id !== id)).catch(
-      (err) => console.error(err)
-    );
+    setSearchResults(searchResults.filter((todo) => todo.id !== id));
   };
 
-  // Begin editing: set the currently editing todo id and prefill the edit form data
   const startEditing = (todo) => {
     setEditingTodoId(todo.id);
     setEditFormData({
@@ -68,7 +71,6 @@ export default function Home() {
     });
   };
 
-  // Cancel editing
   const cancelEditing = (todo) => {
     setEditingTodoId(null);
     setEditFormData({
@@ -86,6 +88,9 @@ export default function Home() {
       .put(`http://localhost:8080/todos/${id}`, { id, ...editFormData })
       .then((res) => {
         setTodos(todos.map((todo) => (todo.id === id ? res.data : todo)));
+        setSearchResults(
+          searchResults.map((todo) => (todo.id === id ? res.data : todo))
+        );
         setEditingTodoId(null);
       })
       .catch((err) => console.error(err));
@@ -98,6 +103,7 @@ export default function Home() {
       <h1>Todo App</h1>
       <SearchBar todos={todos} setSearchResults={setSearchResults} />
       <button>Sort</button>
+      <p>{error}</p>
       <form
         onSubmit={addTodo}
         className="flex flex-row p-4 border border-gray-200 rounded-md w-300 justify-between"
@@ -107,7 +113,6 @@ export default function Home() {
             type="text"
             name="title"
             placeholder="Title"
-            required
             value={newTodo.title}
             onChange={(e) => setNewTodo({ ...newTodo, title: e.target.value })}
           />
@@ -115,7 +120,6 @@ export default function Home() {
             type="text"
             name="description"
             placeholder="Description"
-            required
             value={newTodo.description}
             onChange={(e) =>
               setNewTodo({ ...newTodo, description: e.target.value })
@@ -130,6 +134,7 @@ export default function Home() {
             }
           />
         </div>
+
         <div className="p-6 text-xl h-8 bg-blue-100 flex flex-row items-center justify-center">
           <button type="submit">
             <FontAwesomeIcon icon={faPlus} />
@@ -141,6 +146,11 @@ export default function Home() {
         searchResults={searchResults}
         startEditing={startEditing}
         deleteTodo={deleteTodo}
+        handleEditSubmit={handleEditSubmit}
+        editingTodoId={editingTodoId}
+        editFormData={editFormData}
+        setEditFormData={setEditFormData}
+        cancelEditing={cancelEditing}
       />
     </div>
   );
