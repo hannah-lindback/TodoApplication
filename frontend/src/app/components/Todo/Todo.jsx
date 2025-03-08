@@ -22,7 +22,7 @@ const Todo = ({
   };
 
   return (
-    <li className="flex flex-row p-4 border border-gray-200 rounded-md w-300 justify-between">
+    <li className="flex flex-row p-4 bg-white border  rounded-md w-300 justify-between">
       {isEditing ? (
         <form
           onSubmit={(e) => handleEditSubmit(e, todo.id)}
@@ -66,12 +66,11 @@ const Todo = ({
                     onChange={(e) => changeCompletionStatus(e, todo.id)}
                   />
                 </form>
-                <h3>{todo.title}</h3>
+                <h3 className="text-xl">{todo.title}</h3>
                 <p>{todo.description}</p>
-                <p>Due date: {todo.dueDate}</p>
-                <p>Completed: {todo.completed ? "Yes" : "No"}</p>
               </div>
               <div className="flex flex-row gap-4">
+                <p>Due: {todo.dueDate}</p>
                 <button onClick={() => startEditing(todo)}>
                   <FontAwesomeIcon icon={faPen} />
                 </button>
@@ -91,12 +90,11 @@ const Todo = ({
                     onChange={(e) => changeCompletionStatus(e, todo.id)}
                   />
                 </form>
-                <h3>{todo.title}</h3>
-                <section className="">{todo.description}</section>
-                <p>Due: {todo.dueDate}</p>
-                <p>Completed: {todo.completed ? "Yes" : "No"}</p>
+                <h3 className="text-xl">{todo.title}</h3>
+                <section className="font-sans">{todo.description}</section>
               </div>
               <div className="flex flex-row gap-4">
+                <p>Due: {todo.dueDate}</p>
                 <button onClick={() => startEditing(todo)}>
                   <FontAwesomeIcon icon={faPen} />
                 </button>

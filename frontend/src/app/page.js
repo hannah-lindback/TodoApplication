@@ -7,6 +7,7 @@ import SearchBar from "./components/SearchBar/Searchbar";
 import TodoList from "./components/TodoList/TodoList";
 import AddTodoForm from "./components/AddTodoForm/AddTodoForm";
 import Pagination from "./components/Pagination/Pagination";
+import Header from "./components/Header/Header";
 
 export default function Home() {
   const [todos, setTodos] = useState([]);
@@ -116,24 +117,22 @@ export default function Home() {
   console.log(todos);
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen p-8 pb-20 gap-16 sm:p-20 bg-white border border-gray-200">
-      <h1>Todo App</h1>
+    <div className="flex flex-col items-center justify-center min-h-screen p-8 pb-20 gap-2 sm:p-20 bg-white border border-gray-200">
+      <Header />
       <SearchBar todos={todos} setSearchResults={setSearchResults} />
       <div>
-        <label htmlFor="sort">Sort by: </label>
+        <label>Sort by: </label>
         <select onChange={handleSortChange}>
           <option value="a-z">a-z</option>
           <option value="due date">due date</option>
         </select>
       </div>
-
       <p>{error}</p>
       <AddTodoForm
         setTodos={setTodos}
         setSearchResults={setSearchResults}
         setError={setError}
       />
-
       <TodoList
         searchResults={currentTodos}
         startEditing={startEditing}

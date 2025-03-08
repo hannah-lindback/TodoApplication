@@ -41,7 +41,7 @@ const AddTodoForm = ({ setTodos, setSearchResults, setError }) => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex flex-row p-4 border border-gray-200 rounded-md w-300 justify-between"
+      className="flex flex-row p-4 border border-gray-200 rounded-md w-content justify-between gap-5"
     >
       <div className="flex flex-row gap-4">
         <input
@@ -58,6 +58,8 @@ const AddTodoForm = ({ setTodos, setSearchResults, setError }) => {
           value={newTodo.description}
           onChange={handleChange}
         />
+        <hr className="text-black"></hr>
+
         <input
           type="date"
           name="dueDate"
@@ -66,7 +68,7 @@ const AddTodoForm = ({ setTodos, setSearchResults, setError }) => {
         />
       </div>
 
-      <div className="p-6 text-xl h-8 bg-blue-100 flex flex-row items-center justify-center">
+      <div className="p-6 text-xl h-8 bg-rose-400 flex flex-row items-center justify-center">
         <button type="submit">
           <FontAwesomeIcon icon={faPlus} />
         </button>

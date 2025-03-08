@@ -35,7 +35,11 @@ const TodoList = ({
       </li>
     );
 
-  return <ul className="flex flex-col gap-4">{listContent}</ul>;
+  return (
+    <div className="p-5">
+      <ul className="flex flex-col gap-4">{listContent}</ul>
+    </div>
+  );
 };
 
 export default TodoList;

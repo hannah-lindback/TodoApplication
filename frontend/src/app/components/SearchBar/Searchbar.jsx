@@ -24,6 +24,7 @@ const SearchBar = ({ todos, setSearchResults }) => {
     >
       <input
         type="text"
+        name="search"
         placeholder="Search todos..."
         onChange={handleSearchChange}
         className="p-2 border border-gray-300 rounded-md"
