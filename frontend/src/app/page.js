@@ -6,13 +6,16 @@ import { faTrash, faPlus, faPen } from "@fortawesome/free-solid-svg-icons";
 import SearchBar from "./components/SearchBar/Searchbar";
 import TodoList from "./components/TodoList/TodoList";
 import AddTodoForm from "./components/AddTodoForm/AddTodoForm";
+import Pagination from "./components/Pagination/Pagination";
 
 export default function Home() {
   const [todos, setTodos] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
-  const [dates, setDates] = useState([]);
   const [error, setError] = useState(null);
   const [editingTodoId, setEditingTodoId] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [todosPerPage, setTodosPerPage] = useState(5);
+
   const [editFormData, setEditFormData] = useState({
     title: "",
     description: "",
@@ -24,11 +27,12 @@ export default function Home() {
     axios.get("http://localhost:8080/todos").then((response) => {
       setTodos(response.data);
       setSearchResults(response.data);
-
-      const datesArray = response.data.map((todo) => todo.dueDate);
-      setDates(datesArray);
     });
   }, []);
+
+  const handlePagination = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
 
   const deleteTodo = (id) => {
     axios
@@ -105,8 +109,11 @@ export default function Home() {
       .catch((err) => console.error(err));
   };
 
+  const indexOfLastTodo = currentPage * todosPerPage;
+  const indexOfFirstTodo = indexOfLastTodo - todosPerPage;
+  const currentTodos = searchResults.slice(indexOfFirstTodo, indexOfLastTodo);
+
   console.log(todos);
-  console.log(searchResults);
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen p-8 pb-20 gap-16 sm:p-20 bg-white border border-gray-200">
@@ -126,8 +133,9 @@ export default function Home() {
         setSearchResults={setSearchResults}
         setError={setError}
       />
+
       <TodoList
-        searchResults={searchResults}
+        searchResults={currentTodos}
         startEditing={startEditing}
         deleteTodo={deleteTodo}
         handleEditSubmit={handleEditSubmit}
@@ -135,7 +143,12 @@ export default function Home() {
         editFormData={editFormData}
         setEditFormData={setEditFormData}
         cancelEditing={cancelEditing}
-        changeCompletionStatus={changeCompletionStatus} // Pass the function here
+        changeCompletionStatus={changeCompletionStatus}
+      />
+      <Pagination
+        length={searchResults.length}
+        todosPerPage={todosPerPage}
+        handlePagination={handlePagination}
       />
     </div>
   );
