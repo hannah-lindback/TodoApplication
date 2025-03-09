@@ -1,6 +1,7 @@
 # Todo Application
 
-A simple Todo application featuring separate frontend and backend components. The backend is built with Node.js and Express, while the frontend uses React and Nextjs.
+A React todo application built with Next.js, Node and Express.
+Backend is a simple REST-api with the basic CRUD functions and stores an array with todos.
 
 ---
 
@@ -82,6 +83,8 @@ Open http://localhost:3000 in your browser to see the Todo application.
 - Next.js
 
 ## Notes
+
+API-documentation: [Todo API](https://app.swaggerhub.com/apis/HannahLindback/TodoApi/1.0.0#/)
 
 Ensure that you have Node.js (version 18 or higher) and npm installed on your machine.
 The backend server runs on http://localhost:8080.
