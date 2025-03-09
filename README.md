@@ -1,14 +1,32 @@
 # Todo Application
 
-This project includes a frontend and a backend in separate directories.
+A simple Todo application featuring separate frontend and backend components. The backend is built with Node.js and Express, while the frontend uses React.
+
+---
+
+## Table of Contents
+
+- [Getting Started](#getting-started)
+- [1. Run Backend (Node and Express)](#1-run-backend-node-and-express)
+- [2. Run Frontend (React App)](#2-run-frontend-react-app)
+- [3. Finished!](#3-finished)
+- [Dependencies](#dependencies)
+- [Notes](#notes)
+
+---
 
 ## Getting Started
 
-To run the application correctly, ensure that port 3000 and port 8080 are available.
+Before starting, ensure that **port 3000** (frontend) and **port 8080** (backend) are free on your machine.
+
+---
 
 ## 1. Run Backend (Node and Express)
 
-1. Open a terminal and navigate to the backend root directory.
+1. **Navigate to the backend directory:**
+   ```bash
+   cd path/to/backend
+   ```
 2. Install the dependencies:
    ```bash
    npm install
