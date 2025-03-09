@@ -53,7 +53,7 @@ const Todo = ({
     >
       {isEditing ? (
         <form
-          className=" gap-4 w-full md:items-center lg:items-center xl:items-center 2xl:items-center"
+          className=" gap-4 w-full md:items-center md:flex flex-row lg:items-center lg:flex flex-row  xl:flex flex-row xl:items-center 2xl:flex flex-row 2xl:items-center"
           onSubmit={(e) => handleEditSubmit(e, todo.id)}
         >
           <input
@@ -79,7 +79,7 @@ const Todo = ({
             value={editFormData.dueDate}
             onChange={handleChange}
           />
-          <button className="p-2  rounded-md" type="submit">
+          <button className="p-2  rounded-md text-2xl" type="submit">
             <FontAwesomeIcon icon={faFloppyDisk} />
           </button>
           <button
