@@ -84,7 +84,7 @@ Open http://localhost:3000 in your browser to see the Todo application.
 
 ## Notes
 
-API-documentation: [Todo API](https://app.swaggerhub.com/apis/HannahLindback/TodoApi/1.0.0#/)
+API-documentation: [Todo API](https://app.swaggerhub.com/apis-docs/HannahLindback/TodoApi/1.0.0#//)
 
 Ensure that you have Node.js (version 18 or higher) and npm installed on your machine.
 The backend server runs on http://localhost:8080.
