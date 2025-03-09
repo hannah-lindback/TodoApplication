@@ -20,7 +20,7 @@ let todos = [
     title: "Plan Weekend Getaway",
     description:
       "Book a hotel, flight, and rental car for a weekend trip to the beach",
-    dueDate: "2025-05-31",
+    dueDate: "2025-03-31",
     completed: false,
   },
   {
@@ -48,14 +48,14 @@ let todos = [
     id: uuid.v4(),
     title: "Walk the Dog",
     description: "Take Fluffy for a walk around the neighborhood",
-    dueDate: "2025-03-011",
+    dueDate: "2025-03-11",
     completed: false,
   },
   {
     id: uuid.v4(),
     title: "Workout",
     description: "Go to the gym for a workout session",
-    dueDate: "2025-03-011",
+    dueDate: "2025-03-11",
     completed: true,
   },
   {

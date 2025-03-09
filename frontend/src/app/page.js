@@ -1,8 +1,6 @@
 "use client";
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash, faPlus, faPen } from "@fortawesome/free-solid-svg-icons";
 import SearchBar from "./components/SearchBar/Searchbar";
 import TodoList from "./components/TodoList/TodoList";
 import AddTodoForm from "./components/AddTodoForm/AddTodoForm";
