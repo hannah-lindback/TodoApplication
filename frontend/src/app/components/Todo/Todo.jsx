@@ -6,6 +6,11 @@ import {
   faFloppyDisk,
 } from "@fortawesome/free-solid-svg-icons";
 
+/**
+ * JSX element that displays a todo
+ * @param {*} param0
+ * @returns Object that represents a todo with title, description, due date, and completion status
+ */
 const Todo = ({
   todo,
   startEditing,

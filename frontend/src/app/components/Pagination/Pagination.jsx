@@ -1,3 +1,8 @@
+/**
+ * JSX component that displays pagination numbers
+ * @param {*} param0
+ * @returns pagination numbers
+ */
 const Pagination = ({
   todosPerPage,
   length,

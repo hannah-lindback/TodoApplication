@@ -1,5 +1,9 @@
 import Image from "next/image";
 
+/**
+ *
+ * @returns a header with the logo
+ */
 const Header = () => {
   return (
     <header>

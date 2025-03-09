@@ -3,6 +3,11 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import axios from "axios";
 
+/**
+ * JSX component that displays a form to add a new todo
+ * @param {*} param0
+ * @returns form element with input fields for title, description, and due date
+ */
 const AddTodoForm = ({ setTodos, setSearchResults }) => {
   const [error, setError] = useState(null);
   const [newTodo, setNewTodo] = useState({

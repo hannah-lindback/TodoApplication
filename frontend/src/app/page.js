@@ -121,6 +121,8 @@ export default function Home() {
   const indexOfFirstTodo = indexOfLastTodo - todosPerPage;
   const currentTodos = searchResults.slice(indexOfFirstTodo, indexOfLastTodo);
 
+  console.log("current todos", currentTodos);
+
   return (
     <div className="flex flex-col items-center box-border w-full p-l-8 p-r-8">
       <Header />

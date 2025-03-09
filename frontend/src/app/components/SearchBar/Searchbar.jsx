@@ -1,6 +1,11 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
+/**
+ * JSX component that displays a search bar and sets search results based on user input
+ * @param {*} param0
+ * @returns form element with search bar and search button
+ */
 const SearchBar = ({ todos, setSearchResults }) => {
   const handleSearchSubmit = (e) => e.preventDefault();
 

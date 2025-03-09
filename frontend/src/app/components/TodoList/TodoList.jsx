@@ -1,5 +1,10 @@
 import Todo from "../Todo/Todo";
 
+/**
+ * JSX element that displays a list of todos
+ * @param {*} param0
+ * @returns a list of todo objects
+ */
 const TodoList = ({
   searchResults,
   startEditing,
