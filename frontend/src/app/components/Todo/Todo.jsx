@@ -29,7 +29,7 @@ const Todo = ({
     setEditFormData({ ...editFormData, [name]: value });
   };
 
-  const isDueToday = (dueDate) => {
+  const isDueTodayOrEarlier = (dueDate) => {
     const todaysDate = () => {
       const year = new Date().getFullYear();
       let month = new Date().getMonth() + 1;
@@ -42,13 +42,13 @@ const Todo = ({
       }
       return `${year}-${month}-${day}`;
     };
-    return todaysDate() === dueDate;
+    return todaysDate() >= dueDate;
   };
 
   return (
     <li
       className={`flex flex-row p-4 gap-1 bg-white border items-center sm:w-100 md:w-200 lg:w-200 xl:w-200 2xl:w-200 ${
-        isDueToday(todo.dueDate) ? "bg-yellow-100" : ""
+        isDueTodayOrEarlier(todo.dueDate) ? "bg-yellow-100" : ""
       }`}
     >
       {isEditing ? (
@@ -121,7 +121,7 @@ const Todo = ({
           <div className="flex flex-row gap-4 justify-center items-center">
             <p
               className={`font-sans text-sm w-30 ${
-                isDueToday(todo.dueDate) ? "text-red-400" : ""
+                isDueTodayOrEarlier(todo.dueDate) ? "text-red-400" : ""
               }`}
             >
               Due: {todo.dueDate}
