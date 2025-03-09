@@ -67,6 +67,8 @@ export default function Home() {
       sortedTodos.sort((a, b) => a.title.localeCompare(b.title));
     } else if (sortType === "due date") {
       sortedTodos.sort((a, b) => a.dueDate.localeCompare(b.dueDate));
+    } else {
+      sortedTodos = [...todos];
     }
 
     setSearchResults(sortedTodos);
@@ -121,47 +123,52 @@ export default function Home() {
   const indexOfFirstTodo = indexOfLastTodo - todosPerPage;
   const currentTodos = searchResults.slice(indexOfFirstTodo, indexOfLastTodo);
 
-  console.log("current todos", currentTodos);
-
   return (
-    <div className="flex flex-col items-center box-border w-full p-l-8 p-r-8">
+    <div className="p-4">
       <Header />
-
-      <div className="flex flex-col justify-center gap-4 sm:flex-row md:flex-row lg:flex-row xl:flex-row 2xl:flex-row item-begin justify-between w-full">
-        <div className="flex flex-col gap-4 items-center">
-          <div className="flex flex-col gap-4 items-center sm:flex-row md:flex-row lg:flex-row xl:flex-row 2xl:flex-row">
-            <SearchBar todos={todos} setSearchResults={setSearchResults} />
-            <div className="flex flex-col gap-1 items-center font-sans bg-white border p-2 rounded-md sm:flex-row md:flex-row lg:flex-row xl:flex-row 2xl:flex-row">
-              <label htmlFor="sort">Sort by: </label>
-              <select
-                onChange={handleSortChange}
-                name="sort"
-                className="focus:outline-none"
-              >
-                <option value="a-z">A-Z</option>
-                <option value="due date">due date</option>
-              </select>
+      <div className="flex flex-col items-center py-2">
+        <div className="flex flex-col-reverse gap-2 md:flex-row md:gap-4 lg:flex-row lg:gap-4 xl:flex-row xl:gap-4 2xl:flex-row 2xl:gap-4">
+          <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-2 md:flex-row md:gap-4 md:justify-between lg:flex-row lg:gap-4 lg:justify-between xl:flex-row xl:justify-between xl:gap-4 2xl:flex-row 2xl:gap-4 2xl:justify-between">
+              <SearchBar todos={todos} setSearchResults={setSearchResults} />
+              <div className="flex justify-center items-center">
+                <label htmlFor="sort">Sort by: </label>
+                <select
+                  onChange={handleSortChange}
+                  name="sort"
+                  className="focus:outline-none"
+                >
+                  <option value="oldest-newest">old to new</option>
+                  <option value="a-z">A-Z</option>
+                  <option value="due date">due date</option>
+                </select>
+              </div>
+            </div>
+            <TodoList
+              searchResults={currentTodos}
+              startEditing={startEditing}
+              deleteTodo={deleteTodo}
+              handleEditSubmit={handleEditSubmit}
+              editingTodoId={editingTodoId}
+              editFormData={editFormData}
+              setEditFormData={setEditFormData}
+              cancelEditing={cancelEditing}
+              changeCompletionStatus={changeCompletionStatus}
+            />
+            <div className="flex justify-center items-center ">
+              <Pagination
+                length={searchResults.length}
+                todosPerPage={todosPerPage}
+                handlePagination={handlePagination}
+                currentPage={currentPage}
+              />
             </div>
           </div>
-          <TodoList
-            searchResults={currentTodos}
-            startEditing={startEditing}
-            deleteTodo={deleteTodo}
-            handleEditSubmit={handleEditSubmit}
-            editingTodoId={editingTodoId}
-            editFormData={editFormData}
-            setEditFormData={setEditFormData}
-            cancelEditing={cancelEditing}
-            changeCompletionStatus={changeCompletionStatus}
-          />
-          <Pagination
-            length={searchResults.length}
-            todosPerPage={todosPerPage}
-            handlePagination={handlePagination}
-            currentPage={currentPage}
+          <AddTodoForm
+            setTodos={setTodos}
+            setSearchResults={setSearchResults}
           />
         </div>
-        <AddTodoForm setTodos={setTodos} setSearchResults={setSearchResults} />
       </div>
     </div>
   );

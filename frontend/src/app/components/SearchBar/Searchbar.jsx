@@ -23,20 +23,19 @@ const SearchBar = ({ todos, setSearchResults }) => {
   };
 
   return (
-    <form
-      onSubmit={handleSearchSubmit}
-      className="flex items-center justify-center border rounded-md"
-    >
-      <input
-        type="text"
-        name="search"
-        placeholder="Search todos..."
-        onChange={handleSearchChange}
-        className="p-2 rounded-md "
-      />
-      <button type="submit" className="p-2 bg-rose-400 text-white ">
-        <FontAwesomeIcon icon={faMagnifyingGlass} />
-      </button>
+    <form onSubmit={handleSearchSubmit}>
+      <div className="flex justify-between items-center border rounded-md">
+        <input
+          type="text"
+          name="search"
+          placeholder="Search todos..."
+          onChange={handleSearchChange}
+          className="p-2 rounded-md flex-grow focus:outline-none"
+        />
+        <button type="submit" className="p-2 bg-rose-400 text-white">
+          <FontAwesomeIcon icon={faMagnifyingGlass} />
+        </button>
+      </div>
     </form>
   );
 };

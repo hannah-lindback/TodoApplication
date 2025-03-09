@@ -6,7 +6,7 @@ import Image from "next/image";
  */
 const Header = () => {
   return (
-    <header>
+    <header className="flex justify-center items-center">
       <Image
         src="/logo.svg"
         alt="Logo"

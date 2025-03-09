@@ -35,16 +35,16 @@ const TodoList = ({
     results.length > 0 ? (
       results
     ) : (
-      <div className="w-200">
+      <div className="flex justify-center items-center md:w-200 md:flex lg:justify-start lg:w-200 lg:justify-start xl:w-200 xl:justify-start 2xl:w-200 2xl:justify-start">
         <h2 className="font-sans text-2xl">
-          Couldn't find any todos, add something!
+          Couldn't find any todos...Try again!
         </h2>
       </div>
     );
 
   return (
     <div>
-      <ul className="flex flex-col gap-4 sm:inline  ">{listContent}</ul>
+      <ul className=" ">{listContent}</ul>
     </div>
   );
 };

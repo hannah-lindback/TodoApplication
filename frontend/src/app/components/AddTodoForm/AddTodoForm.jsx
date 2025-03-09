@@ -45,8 +45,7 @@ const AddTodoForm = ({ setTodos, setSearchResults }) => {
       return;
     }
     if (todaysDate() > newTodo.dueDate) {
-      setError("Please enter a future date");
-      console.log("todo date:", newTodo.dueDate, "todays date", todaysDate());
+      setError("That date has already passed. Try again.");
       return;
     }
 
@@ -62,15 +61,13 @@ const AddTodoForm = ({ setTodos, setSearchResults }) => {
         completed: false,
       });
     });
-    console.log(newTodo.dueDate);
-    console.log(todaysDate());
     setError(null);
   };
 
   return (
     <form
       onSubmit={handleSubmit}
-      className=" flex flex-col p-4 bg-white border rounded-md justify-between h-50 md:w-100 lg:w-100 xl:w-100 2xl:w-100"
+      className=" flex flex-col p-4 bg-white border rounded-md justify-between h-60 md:w-100 lg:w-100 xl:w-100 2xl:w-100"
     >
       <div className="flex flex-col gap-2">
         <h2 className="text-2xl">Add a new todo</h2>
@@ -105,7 +102,7 @@ const AddTodoForm = ({ setTodos, setSearchResults }) => {
           <FontAwesomeIcon icon={faPlus} />
         </button>
       </div>
-      <p>{error}</p>
+      <p className="text-red-400 font-medium text-center">{error}</p>
     </form>
   );
 };

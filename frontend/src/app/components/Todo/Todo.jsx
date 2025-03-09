@@ -29,49 +29,75 @@ const Todo = ({
     setEditFormData({ ...editFormData, [name]: value });
   };
 
+  const isDueToday = (dueDate) => {
+    const todaysDate = () => {
+      const year = new Date().getFullYear();
+      let month = new Date().getMonth() + 1;
+      let day = new Date().getDate();
+      if (month < 10) {
+        month = `0${month}`;
+      }
+      if (day < 10) {
+        day = `0${day}`;
+      }
+      return `${year}-${month}-${day}`;
+    };
+    return todaysDate() === dueDate;
+  };
+
   return (
-    <li className="flex flex-row p-4 gap-2 bg-white border justify-between items-center sm:w-100 md:w-200 lg:w-200 xl:w-200 2xl:w-200">
+    <li
+      className={`flex flex-row p-4 gap-1 bg-white border items-center sm:w-100 md:w-200 lg:w-200 xl:w-200 2xl:w-200 ${
+        isDueToday(todo.dueDate) ? "bg-yellow-100" : ""
+      }`}
+    >
       {isEditing ? (
-        <form className="w-full" onSubmit={(e) => handleEditSubmit(e, todo.id)}>
-          <div className="flex flex-row gap-2 font-sans justify-between items-center">
-            <div className="flex flex-col gap-2">
-              <input
-                className="text-2xl"
-                type="text"
-                name="title"
-                value={editFormData.title}
-                onChange={handleChange}
-                required
-              />
-              <input
-                type="text"
-                name="description"
-                value={editFormData.description}
-                onChange={handleChange}
-                required
-              />
-              <input
-                type="date"
-                name="dueDate"
-                value={editFormData.dueDate}
-                onChange={handleChange}
-              />
-            </div>
-            <div className="flex flex-row gap-4 justify-center items-center">
-              <button className="text-3xl" type="submit">
-                <FontAwesomeIcon icon={faFloppyDisk}></FontAwesomeIcon>
-              </button>
-              <button type="button" onClick={() => cancelEditing(todo)}>
-                Cancel
-              </button>
-            </div>
-          </div>
+        <form
+          className=" gap-4 w-full md:items-center lg:items-center xl:items-center 2xl:items-center"
+          onSubmit={(e) => handleEditSubmit(e, todo.id)}
+        >
+          <input
+            className="text-2xl w-full"
+            type="text"
+            name="title"
+            value={editFormData.title}
+            onChange={handleChange}
+            required
+          />
+          <input
+            className="w-full"
+            type="text"
+            name="description"
+            value={editFormData.description}
+            onChange={handleChange}
+            required
+          />
+          <input
+            className="w-full"
+            type="date"
+            name="dueDate"
+            value={editFormData.dueDate}
+            onChange={handleChange}
+          />
+          <button className="p-2  rounded-md" type="submit">
+            <FontAwesomeIcon icon={faFloppyDisk} />
+          </button>
+          <button
+            className=""
+            type="button"
+            onClick={() => cancelEditing(todo)}
+          >
+            Cancel
+          </button>
         </form>
       ) : (
         <>
           <div>
-            {todo.completed ? (
-              <button onClick={(e) => changeCompletionStatus(e, todo.id)}>
+            <button
+              className="w-7 h-7"
+              onClick={(e) => changeCompletionStatus(e, todo.id)}
+            >
+              {todo.completed ? (
                 <Image
                   priority={true}
                   src="/checkbox.svg"
@@ -79,13 +105,10 @@ const Todo = ({
                   width={40}
                   height={40}
                 />
-              </button>
-            ) : (
-              <button
-                className="w-7 h-7 border border-rose-400 rounded-md"
-                onClick={(e) => changeCompletionStatus(e, todo.id)}
-              ></button>
-            )}
+              ) : (
+                <div className="w-7 h-7 border border-rose-400 rounded-md"></div>
+              )}
+            </button>
           </div>
           <div
             className={`flex flex-col gap-2 w-full ${
@@ -96,7 +119,13 @@ const Todo = ({
             <section className="font-sans">{todo.description}</section>
           </div>
           <div className="flex flex-row gap-4 justify-center items-center">
-            <p className="font-sans text-sm w-30">Due: {todo.dueDate}</p>
+            <p
+              className={`font-sans text-sm w-30 ${
+                isDueToday(todo.dueDate) ? "text-red-400" : ""
+              }`}
+            >
+              Due: {todo.dueDate}
+            </p>
             <button onClick={() => startEditing(todo)}>
               <FontAwesomeIcon icon={faPen} />
             </button>
