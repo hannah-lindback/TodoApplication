@@ -8,8 +8,22 @@ import axios from "axios";
  * @param {*} param0
  * @returns form element with input fields for title, description, and due date
  */
+
 const AddTodoForm = ({ setTodos, setSearchResults }) => {
   const [error, setError] = useState(null);
+  const todaysDate = () => {
+    const year = new Date().getFullYear();
+    let month = new Date().getMonth() + 1;
+    let day = new Date().getDate();
+    if (month < 10) {
+      month = `0${month}`;
+    }
+    if (day < 10) {
+      day = `0${day}`;
+    }
+    return `${year}-${month}-${day}`;
+  };
+
   const [newTodo, setNewTodo] = useState({
     id: null,
     title: "",
@@ -27,8 +41,15 @@ const AddTodoForm = ({ setTodos, setSearchResults }) => {
     e.preventDefault();
     if (!newTodo.title || !newTodo.description || !newTodo.dueDate) {
       setError("Please fill out all fields");
+
       return;
     }
+    if (todaysDate() > newTodo.dueDate) {
+      setError("Please enter a future date");
+      console.log("todo date:", newTodo.dueDate, "todays date", todaysDate());
+      return;
+    }
+
     const newTodoToAdd = { ...newTodo };
     axios.post("http://localhost:8080/todos", newTodoToAdd).then((response) => {
       setTodos((prevTodos) => [...prevTodos, response.data]);
@@ -41,6 +62,8 @@ const AddTodoForm = ({ setTodos, setSearchResults }) => {
         completed: false,
       });
     });
+    console.log(newTodo.dueDate);
+    console.log(todaysDate());
     setError(null);
   };
 
