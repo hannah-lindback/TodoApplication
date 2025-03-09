@@ -68,6 +68,7 @@ const Todo = ({
             {todo.completed ? (
               <button onClick={(e) => changeCompletionStatus(e, todo.id)}>
                 <Image
+                  priority={true}
                   src="/checkbox.svg"
                   alt="checkbox-img"
                   width={40}

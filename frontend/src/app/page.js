@@ -9,6 +9,10 @@ import AddTodoForm from "./components/AddTodoForm/AddTodoForm";
 import Pagination from "./components/Pagination/Pagination";
 import Header from "./components/Header/Header";
 
+/**
+ * Entry point for application
+ * @returns {JSX.Element} Home page
+ */
 export default function Home() {
   const [todos, setTodos] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
@@ -124,7 +128,7 @@ export default function Home() {
     <div className="flex flex-col items-center box-border w-full p-l-8 p-r-8">
       <Header />
 
-      <div className="flex flex-col justify-center gap-4 sm:flex-row md:flex-row lg:flex-row xl:flex-row 2xl:flex-row items-center justify-between w-full">
+      <div className="flex flex-col justify-center gap-4 sm:flex-row md:flex-row lg:flex-row xl:flex-row 2xl:flex-row item-begin justify-between w-full">
         <div className="flex flex-col gap-4 items-center">
           <div className="flex flex-col gap-4 items-center sm:flex-row md:flex-row lg:flex-row xl:flex-row 2xl:flex-row">
             <SearchBar todos={todos} setSearchResults={setSearchResults} />

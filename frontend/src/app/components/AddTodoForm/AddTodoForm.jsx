@@ -42,7 +42,7 @@ const AddTodoForm = ({ setTodos, setSearchResults }) => {
   return (
     <form
       onSubmit={handleSubmit}
-      className=" flex flex-col p-4 bg-white border rounded-md justify-between w-100 h-50 "
+      className=" flex flex-col p-4 bg-white border rounded-md justify-between h-50 md:w-100 lg:w-100 xl:w-100 2xl:w-100"
     >
       <div className="flex flex-col gap-2">
         <h2 className="text-2xl">Add a new todo</h2>
