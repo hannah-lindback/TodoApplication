@@ -124,11 +124,11 @@ export default function Home() {
     <div className="flex flex-col items-center box-border w-full p-l-8 p-r-8">
       <Header />
 
-      <div className="flex flex-row gap-4">
+      <div className="flex flex-col justify-center gap-4 sm:flex-row md:flex-row lg:flex-row xl:flex-row 2xl:flex-row items-center justify-between w-full">
         <div className="flex flex-col gap-4 items-center">
-          <div className="flex flex-row  rounded-md justify-between w-200">
+          <div className="flex flex-col gap-4 items-center sm:flex-row md:flex-row lg:flex-row xl:flex-row 2xl:flex-row">
             <SearchBar todos={todos} setSearchResults={setSearchResults} />
-            <div className="flex flex-row gap-1 items-center font-sans bg-white border p-2 rounded-md">
+            <div className="flex flex-col gap-1 items-center font-sans bg-white border p-2 rounded-md sm:flex-row md:flex-row lg:flex-row xl:flex-row 2xl:flex-row">
               <label htmlFor="sort">Sort by: </label>
               <select
                 onChange={handleSortChange}

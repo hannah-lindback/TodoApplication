@@ -25,7 +25,7 @@ const Todo = ({
   };
 
   return (
-    <li className="flex flex-row p-4 gap-2 bg-white border rounded-md justify-between w-200 items-center">
+    <li className="flex flex-row p-4 gap-2 bg-white border justify-between items-center sm:w-100 md:w-200 lg:w-200 xl:w-200 2xl:w-200">
       {isEditing ? (
         <form className="w-full" onSubmit={(e) => handleEditSubmit(e, todo.id)}>
           <div className="flex flex-row gap-2 font-sans justify-between items-center">
@@ -82,7 +82,7 @@ const Todo = ({
             )}
           </div>
           <div
-            className={`flex flex-col gap-2 w-200 ${
+            className={`flex flex-col gap-2 ${
               todo.completed ? "line-through" : ""
             }`}
           >

@@ -39,7 +39,7 @@ const TodoList = ({
 
   return (
     <div>
-      <ul className="flex flex-col gap-2">{listContent}</ul>
+      <ul className="flex flex-col gap-4 sm:inline  ">{listContent}</ul>
     </div>
   );
 };
