@@ -12,7 +12,7 @@ let todos = [
     id: uuid.v4(),
     title: "Buy groceries",
     description: "Purchase milk, bread, eggs, and seasonal fruits from Ica",
-    dueDate: "2025-12-31",
+    dueDate: "2025-03-17",
     completed: true,
   },
   {
@@ -34,7 +34,7 @@ let todos = [
     id: uuid.v4(),
     title: "Call Mom",
     description: "Give Mom a call to catch up on life and say hello",
-    dueDate: "2025-03-15",
+    dueDate: "2025-03-12",
     completed: true,
   },
   {
@@ -42,6 +42,34 @@ let todos = [
     title: "Finish Homework",
     description: "Complete the remaining exercises for the math assignment",
     dueDate: "2025-03-10",
+    completed: true,
+  },
+  {
+    id: uuid.v4(),
+    title: "Walk the Dog",
+    description: "Take Fluffy for a walk around the neighborhood",
+    dueDate: "2025-03-011",
+    completed: false,
+  },
+  {
+    id: uuid.v4(),
+    title: "Workout",
+    description: "Go to the gym for a workout session",
+    dueDate: "2025-03-011",
+    completed: true,
+  },
+  {
+    id: uuid.v4(),
+    title: "Read Book",
+    description: "Spend an hour reading the latest novel",
+    dueDate: "2025-02-28",
+    completed: false,
+  },
+  {
+    id: uuid.v4(),
+    title: "Clean Room",
+    description: "Tidy up the bedroom and organize the closet",
+    dueDate: "2025-02-25",
     completed: true,
   },
 ];
