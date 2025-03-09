@@ -1,6 +1,6 @@
 # Todo Application
 
-A simple Todo application featuring separate frontend and backend components. The backend is built with Node.js and Express, while the frontend uses React.
+A simple Todo application featuring separate frontend and backend components. The backend is built with Node.js and Express, while the frontend uses React and Nextjs.
 
 ---
 
@@ -15,7 +15,7 @@ A simple Todo application featuring separate frontend and backend components. Th
 
 ---
 
-## Getting Started
+# Getting Started
 
 Before starting, ensure that **port 3000** (frontend) and **port 8080** (backend) are free on your machine.
 
@@ -23,51 +23,66 @@ Before starting, ensure that **port 3000** (frontend) and **port 8080** (backend
 
 ## 1. Run Backend (Node and Express)
 
-1. **Navigate to the backend directory:**
+1. **Open a terminal and navigate to the backend directory:**
+
    ```bash
-   cd path/to/backend
+   cd backend
    ```
-2. Install the dependencies:
+
+2. **Install the dependencies:**
    ```bash
    npm install
    ```
-3. Start the backend server:
+3. **Start the backend server:**
    ```bash
    node index.js
    ```
 
 ## 2. Run Frontend (React App)
 
-1. Open another terminal and navigate to the frontend directory.
-2. install the dependencies:
+1. **Open another terminal and navigate to the frontend directory.**
+
+   ```bash
+   cd frontend
+
+
+   ```
+
+2. **install the dependencies:**
+
    ```bash
    npm install
    ```
-3. Start the frontend development server:
+
+3. **Start the frontend development server:**
    ```bash
    npm run dev
    ```
 
 ## 3. Finished!
 
-Open http://localhost:3000 in your browser to see the result.
+Open http://localhost:3000 in your browser to see the Todo application.
 
-Dependencies
+---
 
-Backend
+# Dependencies
+
+## Backend
 
 - Express
 - UUID
 - CORS
+- Node (version 18 or higher)
 
-Frontend
+## Frontend
 
 - React
 - Axios
 - FontAwesome
-- Next.js (if applicable)
+- Next.js
 
-Notes
+## Notes
+
 Ensure that you have Node.js (version 18 or higher) and npm installed on your machine.
 The backend server runs on http://localhost:8080.
 The frontend development server runs on http://localhost:3000.
