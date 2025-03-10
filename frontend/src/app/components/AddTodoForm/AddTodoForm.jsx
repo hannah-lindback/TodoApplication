@@ -8,8 +8,7 @@ import axios from "axios";
  * @param {*} param0
  * @returns form element with input fields for title, description, and due date
  */
-
-const AddTodoForm = ({ setTodos, setSearchResults }) => {
+const AddTodoForm = ({ setTodos, setSearchResults, setCurrentPage }) => {
   const [error, setError] = useState(null);
   const todaysDate = () => {
     const year = new Date().getFullYear();
@@ -41,7 +40,6 @@ const AddTodoForm = ({ setTodos, setSearchResults }) => {
     e.preventDefault();
     if (!newTodo.title || !newTodo.description || !newTodo.dueDate) {
       setError("Please fill out all fields");
-
       return;
     }
     if (todaysDate() > newTodo.dueDate) {
@@ -51,8 +49,8 @@ const AddTodoForm = ({ setTodos, setSearchResults }) => {
 
     const newTodoToAdd = { ...newTodo };
     axios.post("http://localhost:8080/todos", newTodoToAdd).then((response) => {
-      setTodos((prevTodos) => [...prevTodos, response.data]);
-      setSearchResults((prevResults) => [...prevResults, response.data]);
+      setTodos((prevTodos) => [response.data, ...prevTodos]);
+      setSearchResults((prevResults) => [response.data, ...prevResults]);
       setError(" ");
       setNewTodo({
         title: "",
@@ -60,6 +58,7 @@ const AddTodoForm = ({ setTodos, setSearchResults }) => {
         dueDate: "",
         completed: false,
       });
+      setCurrentPage(1);
     });
     setError(null);
   };
@@ -67,7 +66,7 @@ const AddTodoForm = ({ setTodos, setSearchResults }) => {
   return (
     <form
       onSubmit={handleSubmit}
-      className=" flex flex-col p-4 bg-white border rounded-md justify-between h-60 md:w-100 lg:w-100 xl:w-100 2xl:w-100"
+      className="flex flex-col p-4 bg-white border rounded-md justify-between h-60 md:w-100 lg:w-100 xl:w-100 2xl:w-100"
     >
       <div className="flex flex-col gap-2">
         <h2 className="text-2xl">Add a new todo</h2>
@@ -85,7 +84,6 @@ const AddTodoForm = ({ setTodos, setSearchResults }) => {
           value={newTodo.description}
           onChange={handleChange}
         />
-
         <input
           type="date"
           name="dueDate"
@@ -93,7 +91,6 @@ const AddTodoForm = ({ setTodos, setSearchResults }) => {
           onChange={handleChange}
         />
       </div>
-
       <div>
         <button
           className="text-white text-xl p-2 h-8 w-full text-sm bg-rose-400 flex flex-row items-center justify-center"

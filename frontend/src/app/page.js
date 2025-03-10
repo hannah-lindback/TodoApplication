@@ -28,8 +28,9 @@ export default function Home() {
 
   useEffect(() => {
     axios.get("http://localhost:8080/todos").then((response) => {
-      setTodos(response.data);
-      setSearchResults(response.data);
+      const reversedTodos = response.data.reverse();
+      setTodos(reversedTodos);
+      setSearchResults(reversedTodos);
     });
   }, []);
 
@@ -63,6 +64,8 @@ export default function Home() {
 
     if (sortType === "a-z") {
       sortedTodos.sort((a, b) => a.title.localeCompare(b.title));
+    } else if (sortType === "old-new") {
+      sortedTodos.reverse();
     } else if (sortType === "due date") {
       sortedTodos.sort((a, b) => a.dueDate.localeCompare(b.dueDate));
     } else {
@@ -136,7 +139,8 @@ export default function Home() {
                   name="sort"
                   className="focus:outline-none"
                 >
-                  <option value="oldest-newest">old to new</option>
+                  <option value="oldest-newest">newly added</option>
+                  <option value="old-new">old-new</option>
                   <option value="a-z">A-Z</option>
                   <option value="due date">due date</option>
                 </select>
@@ -163,6 +167,7 @@ export default function Home() {
             </div>
           </div>
           <AddTodoForm
+            setCurrentPage={setCurrentPage}
             setTodos={setTodos}
             setSearchResults={setSearchResults}
           />
