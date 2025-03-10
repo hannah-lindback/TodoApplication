@@ -49,7 +49,7 @@ Before starting, ensure that **port 3000** (frontend) and **port 8080** (backend
 
    ```
 
-2. **install the dependencies:**
+2. **Install the dependencies:**
 
    ```bash
    npm install
@@ -91,5 +91,5 @@ Ensure that you have Node.js (version 18 or higher) and npm installed on your ma
 The backend server runs on http://localhost:8080.
 The frontend development server runs on http://localhost:3000.
 
-Troubleshooting
+Troubleshooting:
 If you encounter issues with ports being in use, ensure that no other applications are running on ports 3000 and 8080.
