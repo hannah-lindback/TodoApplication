@@ -30,6 +30,7 @@ const AddTodoForm = ({ setTodos, setSearchResults, setCurrentPage }) => {
     dueDate: "",
     completed: false,
   });
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
   const handleChange = (e) => {
     const { name, value } = e.target;
