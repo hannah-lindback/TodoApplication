@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const port = 8080;
+const port = process.env.PORT || 8080;
 const uuid = require("uuid");
 
 const cors = require("cors");
@@ -74,8 +74,8 @@ let todos = [
   },
 ];
 
-app.listen(port, () => {
-  console.log(`Server is running on port http://localhost:${port}`);
+app.listen(port, "0.0.0.0", () => {
+  console.log(`Server is running on port ${port}`);
 });
 
 // Get all todos

@@ -13,11 +13,10 @@ import Header from "./components/Header/Header";
  */
 export default function Home() {
   const [todos, setTodos] = useState([]);
-  const [searchResults, setSearchResults] = useState([]);
-
   const [editingTodoId, setEditingTodoId] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [todosPerPage, setTodosPerPage] = useState(5);
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080";
 
   const [editFormData, setEditFormData] = useState({
     title: "",
@@ -27,10 +26,9 @@ export default function Home() {
   });
 
   useEffect(() => {
-    axios.get("http://localhost:8080/todos").then((response) => {
+    axios.get(`${apiUrl}/todos`).then((response) => {
       const reversedTodos = response.data.reverse();
       setTodos(reversedTodos);
-      setSearchResults(reversedTodos);
     });
   }, []);
 
@@ -60,7 +58,7 @@ export default function Home() {
 
   const handleSortChange = (e) => {
     let sortType = e.target.value;
-    let sortedTodos = [...searchResults];
+    let sortedTodos = [...todos];
 
     if (sortType === "a-z") {
       sortedTodos.sort((a, b) => a.title.localeCompare(b.title));
@@ -72,15 +70,14 @@ export default function Home() {
       sortedTodos = [...todos];
     }
 
-    setSearchResults(sortedTodos);
+    setTodos(sortedTodos);
   };
 
   const deleteTodo = (id) => {
     axios
-      .delete(`http://localhost:8080/todos/${id}`)
+      .delete(`${apiUrl}/todos/${id}`)
       .then(() => {
         setTodos(todos.filter((todo) => todo.id !== id));
-        setSearchResults(searchResults.filter((todo) => todo.id !== id));
       })
       .catch((err) => console.error(err));
   };
@@ -88,12 +85,9 @@ export default function Home() {
   const handleEditSubmit = (e, id) => {
     e.preventDefault();
     axios
-      .put(`http://localhost:8080/todos/${id}`, { id, ...editFormData })
+      .put(`${apiUrl}todos/${id}`, { id, ...editFormData })
       .then((res) => {
         setTodos(todos.map((todo) => (todo.id === id ? res.data : todo)));
-        setSearchResults(
-          searchResults.map((todo) => (todo.id === id ? res.data : todo))
-        );
         setEditingTodoId(null);
       })
       .catch((err) => console.error(err));
@@ -110,19 +104,16 @@ export default function Home() {
     const updatedTodo = updatedTodos.find((todo) => todo.id === id);
 
     axios
-      .put(`http://localhost:8080/todos/${id}`, updatedTodo)
+      .put(`${apiUrl}/todos/${id}`, updatedTodo)
       .then((res) => {
         setTodos(updatedTodos);
-        setSearchResults(
-          searchResults.map((todo) => (todo.id === id ? res.data : todo))
-        );
       })
       .catch((err) => console.error(err));
   };
 
   const indexOfLastTodo = currentPage * todosPerPage;
   const indexOfFirstTodo = indexOfLastTodo - todosPerPage;
-  const currentTodos = searchResults.slice(indexOfFirstTodo, indexOfLastTodo);
+  const currentTodos = todos.slice(indexOfFirstTodo, indexOfLastTodo);
 
   return (
     <div className="p-4">
@@ -131,7 +122,7 @@ export default function Home() {
         <div className="flex flex-col-reverse gap-2 md:flex-row md:gap-4 lg:flex-row lg:gap-4 xl:flex-row xl:gap-4 2xl:flex-row 2xl:gap-4">
           <div className="flex flex-col gap-2">
             <div className="flex flex-col gap-2 md:flex-row md:gap-4 md:justify-between lg:flex-row lg:gap-4 lg:justify-between xl:flex-row xl:justify-between xl:gap-4 2xl:flex-row 2xl:gap-4 2xl:justify-between">
-              <SearchBar todos={todos} setSearchResults={setSearchResults} />
+              <SearchBar todos={todos} />
               <div className="flex justify-center items-center">
                 <label htmlFor="sort">Sort by: </label>
                 <select
@@ -147,7 +138,7 @@ export default function Home() {
               </div>
             </div>
             <TodoList
-              searchResults={currentTodos}
+              todos={currentTodos}
               startEditing={startEditing}
               deleteTodo={deleteTodo}
               handleEditSubmit={handleEditSubmit}
@@ -159,18 +150,14 @@ export default function Home() {
             />
             <div className="flex justify-center items-center ">
               <Pagination
-                length={searchResults.length}
+                length={todos.length}
                 todosPerPage={todosPerPage}
                 handlePagination={handlePagination}
                 currentPage={currentPage}
               />
             </div>
           </div>
-          <AddTodoForm
-            setCurrentPage={setCurrentPage}
-            setTodos={setTodos}
-            setSearchResults={setSearchResults}
-          />
+          <AddTodoForm setCurrentPage={setCurrentPage} setTodos={setTodos} />
         </div>
       </div>
     </div>
