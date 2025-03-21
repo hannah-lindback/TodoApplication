@@ -48,7 +48,7 @@ const AddTodoForm = ({ setTodos, setSearchResults, setCurrentPage }) => {
     }
 
     const newTodoToAdd = { ...newTodo };
-    axios.post("http://localhost:8080/todos", newTodoToAdd).then((response) => {
+    axios.post(`${apiUrl}/todos`, newTodoToAdd).then((response) => {
       setTodos((prevTodos) => [response.data, ...prevTodos]);
       setSearchResults((prevResults) => [response.data, ...prevResults]);
       setError(" ");

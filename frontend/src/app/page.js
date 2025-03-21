@@ -25,9 +25,10 @@ export default function Home() {
     dueDate: "",
     completed: false,
   });
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
   useEffect(() => {
-    axios.get("http://localhost:8080/todos").then((response) => {
+    axios.get(`${apiUrl}/todos`).then((response) => {
       const reversedTodos = response.data.reverse();
       setTodos(reversedTodos);
       setSearchResults(reversedTodos);
@@ -77,7 +78,7 @@ export default function Home() {
 
   const deleteTodo = (id) => {
     axios
-      .delete(`http://localhost:8080/todos/${id}`)
+      .delete(`${apiUrl}/todos/${id}`)
       .then(() => {
         setTodos(todos.filter((todo) => todo.id !== id));
         setSearchResults(searchResults.filter((todo) => todo.id !== id));
@@ -88,7 +89,7 @@ export default function Home() {
   const handleEditSubmit = (e, id) => {
     e.preventDefault();
     axios
-      .put(`http://localhost:8080/todos/${id}`, { id, ...editFormData })
+      .put(`${apiUrl}/todos/${id}`, { id, ...editFormData })
       .then((res) => {
         setTodos(todos.map((todo) => (todo.id === id ? res.data : todo)));
         setSearchResults(
@@ -110,7 +111,7 @@ export default function Home() {
     const updatedTodo = updatedTodos.find((todo) => todo.id === id);
 
     axios
-      .put(`http://localhost:8080/todos/${id}`, updatedTodo)
+      .put(`${apiUrl}/todos/${id}`, updatedTodo)
       .then((res) => {
         setTodos(updatedTodos);
         setSearchResults(
